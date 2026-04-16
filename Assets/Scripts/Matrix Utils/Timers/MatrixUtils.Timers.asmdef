@@ -1,0 +1,17 @@
+{
+    "name": "MatrixUtils.Timers",
+    "rootNamespace": "",
+    "references": [
+        "GUID:815a13231799719459be40aec0116d9c",
+        "GUID:ecd059b573046fe409f5d0e442af6dc3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

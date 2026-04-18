@@ -10,6 +10,7 @@ public class TerrainGenerator : MonoBehaviour
     [SerializeField] Vector2 m_maximums = new(34, 12);
     [SerializeField] float m_floorDistance = 10;
     [SerializeField] float m_maxHeight = 10;
+    [SerializeField] float m_minHeight = 0;
     [SerializeField] float m_tangentScale = 1/3f;
     [SerializeField] int m_seed = 0;
     void OnValidate()
@@ -18,14 +19,14 @@ public class TerrainGenerator : MonoBehaviour
         Random.InitState(m_seed);
         m_shapeController.spline.Clear();
         Vector2[] points = new Vector2[m_terrainResolution];
-        float directionalSign = 1f;
+        float directionalSign = -1f;
         float currentYPosition = transform.position.y;
         points[0] = new(transform.position.x, transform.position.y);
         for (int i = 1; i < m_terrainResolution; i++)
         {
             Vector2 steps = new(Random.Range(m_minimums.x, m_maximums.x), Random.Range(m_minimums.y, m_maximums.y));
             points[i].x = points[i - 1].x + steps.x;
-            points[i].y = Mathf.Clamp(currentYPosition + steps.y * directionalSign, 0, m_maxHeight);
+            points[i].y = Mathf.Clamp(currentYPosition + steps.y * directionalSign, transform.position.y + m_minHeight, transform.position.y + m_maxHeight);
             currentYPosition = points[i].y;
             directionalSign *= -1f;
         }

@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, RequiredField] InputActionReference m_diveAction;
     [SerializeField] float m_diveForce = 1000;
     [SerializeField] float m_minimumHorizontalSpeed = 0.5f;
-    bool m_isDiving = false;
+    bool m_isDiving;
     Rigidbody2D m_rb;
 
     void OnEnable()

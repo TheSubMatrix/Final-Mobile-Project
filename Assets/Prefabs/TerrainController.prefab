@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 6601467769658110095}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.69374, y: -18.01316, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201bb4941ea262a41baa58458cf6c7b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Project.Core::TerrainController
-  m_segmentPrefab: {fileID: 0}
+  m_segmentPrefab: {fileID: 6684439452304418538, guid: 26d730413883e1745ab2282ad3fab151, type: 3}
+  m_loadTriggerPrefab: {fileID: 142420116510761037, guid: 53700ee7b09d6eb4f9c2518ee7bd3516, type: 3}
+  m_initialSegmentCount: 2
+  m_triggerLookahead: 2
+  m_triggerHeight: 1000

@@ -935,17 +935,17 @@ MonoBehaviour:
   m_SpriteShape: {fileID: 11400000, guid: 505b4f8bb0aff384ea3bbc86b9a79201, type: 2}
   m_FillPixelPerUnit: 256
   m_StretchTiling: 1
-  m_SplineDetail: 16
+  m_SplineDetail: 8
   m_AdaptiveUV: 1
   m_StretchUV: 0
-  m_WorldSpaceUV: 0
+  m_WorldSpaceUV: 1
   m_CornerAngleThreshold: 30
   m_ColliderDetail: 16
   m_ColliderOffset: -0.5
   m_UpdateCollider: 1
   m_EnableTangents: 0
   m_GeometryCached: 0
-  m_UTess2D: 0
+  m_UTess2D: 1
   m_UpdateShadow: 0
   m_ShadowDetail: 16
   m_ShadowOffset: 0.5
@@ -2280,7 +2280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddaa207bbf5225d4ca4c5524e05490e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Project.Core::TerrainGenerator
-  m_terrainResolution: 100
+  m_terrainResolution: 25
   m_overlapCount: 5
   m_minimums: {x: 4.86, y: 1.99}
   m_maximums: {x: 10, y: 5.1}

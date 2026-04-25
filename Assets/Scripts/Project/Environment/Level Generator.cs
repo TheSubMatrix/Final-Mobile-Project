@@ -25,8 +25,8 @@ public class LevelGenerator : MonoBehaviour
     void Start()
     {
         m_terrainSegmentPool = new ObjectPool<TerrainSegment>(CreateTerrainSegment);
-        m_coinPool = new ObjectPool<Collectible>(() => SpawnCoin(m_coinPrefab));
-        m_powerUpPool = new ObjectPool<Collectible>(() => SpawnPowerUp(m_coinPrefab));
+        m_coinPool = new ObjectPool<Collectible>(() => SpawnCollectible(m_coinPrefab));
+        m_powerUpPool = new ObjectPool<Collectible>(() => SpawnCollectible(m_powerUpPrefab));
         m_loadTrigger = Instantiate(m_loadTriggerPrefab);
         m_loadTrigger.OnThresholdCrossed += OnThresholdCrossed;
         m_activeSegments.AddLast(SpawnSegment(null));
@@ -53,9 +53,9 @@ public class LevelGenerator : MonoBehaviour
     {
         LinkedListNode<TerrainSegment> node = m_activeSegments.Last;
         for (int i = 0; i < m_triggerLookahead && node.Previous != null; i++) node = node.Previous;
-        Vector2[] overlapPoints = node.Value.OverlapPoints;
+        TerrainPointData[] overlapPoints = node.Value.OverlapPoints;
         if (overlapPoints.Length == 0) return;
-        m_loadTrigger.SetBounds(overlapPoints[0].x, m_triggerHeight);
+        m_loadTrigger.SetBounds(overlapPoints[0].Position.x, m_triggerHeight);
     }
 
     TerrainSegment SpawnSegment(TerrainSegment prior)
@@ -63,7 +63,7 @@ public class LevelGenerator : MonoBehaviour
         TerrainSegment segment = m_terrainSegmentPool.Get();
         segment.gameObject.SetActive(true);
         segment.Initialize();
-        float startX = prior?.OverlapPoints.Length > 0 ? prior.OverlapPoints[0].x : 0f;
+        float startX = prior?.OverlapPoints.Length > 0 ? prior.OverlapPoints[0].Position.x : 0f;
         segment.transform.position = new(startX, 0f, 0f);
         GenerateTerrainForSegment(segment, prior);
         segment.ShapeController.RefreshSpriteShape();
@@ -84,16 +84,9 @@ public class LevelGenerator : MonoBehaviour
         return segment;
     }
 
-    Collectible SpawnCoin(Collectible collectible)
+    Collectible SpawnCollectible(Collectible collectible)
     {
-        Collectible spawnedCoin = Instantiate(m_coinPrefab);
-        spawnedCoin.gameObject.SetActive(false);
-        m_injector.Inject(spawnedCoin);
-        return spawnedCoin;
-    }
-    Collectible SpawnPowerUp(Collectible collectible)
-    {
-        Collectible spawnedCoin = Instantiate(m_powerUpPrefab);
+        Collectible spawnedCoin = Instantiate(collectible);
         spawnedCoin.gameObject.SetActive(false);
         m_injector.Inject(spawnedCoin);
         return spawnedCoin;

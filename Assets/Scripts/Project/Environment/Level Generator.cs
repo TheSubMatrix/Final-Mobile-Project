@@ -12,18 +12,21 @@ public class LevelGenerator : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField, RequiredField] TerrainSegment m_segmentPrefab;
     [SerializeField, RequiredField] TerrainLoadTrigger m_loadTriggerPrefab;
-    [SerializeField, RequiredField] Coin m_coinPrefab;
+    [SerializeField, RequiredField] Collectible m_coinPrefab;
+    [SerializeField, RequiredField] Collectible m_powerUpPrefab;
     
     [Inject] IInjector m_injector;
     IObjectPool<TerrainSegment> m_terrainSegmentPool;
-    IObjectPool<Coin> m_coinPool;
+    IObjectPool<Collectible> m_coinPool;
+    IObjectPool<Collectible> m_powerUpPool;
     readonly LinkedList<TerrainSegment> m_activeSegments = new();
     TerrainLoadTrigger m_loadTrigger;
 
     void Start()
     {
         m_terrainSegmentPool = new ObjectPool<TerrainSegment>(CreateTerrainSegment);
-        m_coinPool = new ObjectPool<Coin>(SpawnCoin);
+        m_coinPool = new ObjectPool<Collectible>(() => SpawnCoin(m_coinPrefab));
+        m_powerUpPool = new ObjectPool<Collectible>(() => SpawnPowerUp(m_coinPrefab));
         m_loadTrigger = Instantiate(m_loadTriggerPrefab);
         m_loadTrigger.OnThresholdCrossed += OnThresholdCrossed;
         m_activeSegments.AddLast(SpawnSegment(null));
@@ -81,9 +84,16 @@ public class LevelGenerator : MonoBehaviour
         return segment;
     }
 
-    Coin SpawnCoin()
+    Collectible SpawnCoin(Collectible collectible)
     {
-        Coin spawnedCoin = Instantiate(m_coinPrefab);
+        Collectible spawnedCoin = Instantiate(m_coinPrefab);
+        spawnedCoin.gameObject.SetActive(false);
+        m_injector.Inject(spawnedCoin);
+        return spawnedCoin;
+    }
+    Collectible SpawnPowerUp(Collectible collectible)
+    {
+        Collectible spawnedCoin = Instantiate(m_powerUpPrefab);
         spawnedCoin.gameObject.SetActive(false);
         m_injector.Inject(spawnedCoin);
         return spawnedCoin;

@@ -911,7 +911,6 @@ GameObject:
   - component: {fileID: 1714969711}
   - component: {fileID: 1714969712}
   m_Layer: 2
-  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1085,7 +1084,7 @@ MonoBehaviour:
   m_groundCheckDistance: 1.1
   m_groundLayer:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 64
   m_airtimeMultiplier: 10
   m_heightMultiplier: 5
 --- !u!1 &1768077418
@@ -1101,7 +1100,7 @@ GameObject:
   - component: {fileID: 1768077419}
   - component: {fileID: 1768077420}
   m_Layer: 5
-  m_Name: bonus score
+  m_Name: Bonus Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

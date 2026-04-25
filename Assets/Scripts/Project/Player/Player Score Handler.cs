@@ -1,7 +1,5 @@
 using MatrixUtils.DependencyInjection;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerScoreHandler : MonoBehaviour
 {
@@ -25,18 +23,17 @@ public class PlayerScoreHandler : MonoBehaviour
         HandleAirBonus();
     }
 
-    private void HandleDistanceScoring()
+    void HandleDistanceScoring()
     {
         if (!(Vector3.Distance(transform.position, m_lastPosition) > 1)) return;
         m_lastPosition = transform.position;
         m_scoreManager.AddScore(1);
     }
 
-    private void HandleAirBonus()
+    void HandleAirBonus()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, m_groundCheckDistance, m_groundLayer);
-        bool isGrounded = hit.collider != null;
-
+        bool isGrounded = hit.collider;
         if (!isGrounded)
         {
             if (!m_isAirborne)
@@ -62,15 +59,13 @@ public class PlayerScoreHandler : MonoBehaviour
         }
     }
 
-    private void ApplyAirBonus()
+    void ApplyAirBonus()
     {
         float totalHeight = Mathf.Max(0, m_maxHeightInJump - m_jumpStartY);
         int heightBonus = Mathf.RoundToInt(totalHeight * m_heightMultiplier);
         int airtimeBonus = Mathf.RoundToInt(m_airtimeTimer * m_airtimeMultiplier);
-        if (heightBonus > 0 || airtimeBonus > 0)
-        {
-            uint totalBonus = (uint)heightBonus + (uint)airtimeBonus;
-            m_scoreManager.AddAirtimeBonus(totalBonus);
-        }
+        if (heightBonus <= 0 && airtimeBonus <= 0) return;
+        uint totalBonus = (uint)heightBonus + (uint)airtimeBonus;
+        m_scoreManager.AddAirtimeBonus(totalBonus);
     }
 }

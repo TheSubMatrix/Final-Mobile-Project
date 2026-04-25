@@ -7,11 +7,10 @@ using UnityEngine;
 
 public class PlayerHUD : MonoBehaviour, IDependencyProvider
 {
-    private static WaitForSeconds _waitForSeconds0_8 = new WaitForSeconds(0.8f);
+    static readonly WaitForSeconds s_waitForSeconds08 = new(0.8f);
 
     [Provide, UsedImplicitly] IScoreManager GetScoreManager() => m_scoreManager;
     [SerializeField, RequiredField] TMP_Text m_scoreText;
-
     [SerializeField, RequiredField] TMP_Text m_bonusScoreText;
     [SerializeField] string m_scorePrefix;
     [ClassSelector, SerializeReference] IScoreManager m_scoreManager;
@@ -42,7 +41,7 @@ public class PlayerHUD : MonoBehaviour, IDependencyProvider
     IEnumerator BonusDisplayCoroutine()
     {
         m_bonusScoreText.gameObject.SetActive(true);
-        yield return _waitForSeconds0_8;
+        yield return s_waitForSeconds08;
         m_bonusScoreText.gameObject.SetActive(false);
     }
 }

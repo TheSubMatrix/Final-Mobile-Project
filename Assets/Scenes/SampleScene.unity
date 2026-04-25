@@ -885,7 +885,11 @@ MonoBehaviour:
     - rid: 8571499642968080480
       type: {class: HUDScoreManager, ns: , asm: Project.Core.UI}
       data:
-        <Score>k__BackingField: 0
+        <Score>k__BackingField:
+          m_value: 0
+          m_onValueChanged:
+            m_PersistentCalls:
+              m_Calls: []
 --- !u!1 &1714969706
 GameObject:
   m_ObjectHideFlags: 0

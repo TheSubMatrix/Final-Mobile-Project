@@ -1,30 +1,34 @@
 using System.Collections.Generic;
 using MatrixUtils.Attributes;
+using MatrixUtils.DependencyInjection;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class TerrainController : MonoBehaviour
+public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField, RequiredField] TerrainSegment m_segmentPrefab;
-    [SerializeField, RequiredField] TerrainLoadTrigger m_loadTriggerPrefab;
     [SerializeField] int m_initialSegmentCount = 2;
     [SerializeField] int m_triggerLookahead = 2;
     [SerializeField] float m_triggerHeight = 1000f;
-
+    [Header("Prefabs")]
+    [SerializeField, RequiredField] TerrainSegment m_segmentPrefab;
+    [SerializeField, RequiredField] TerrainLoadTrigger m_loadTriggerPrefab;
+    [SerializeField, RequiredField] Coin m_coinPrefab;
+    
+    [Inject] IInjector m_injector;
     IObjectPool<TerrainSegment> m_terrainSegmentPool;
+    IObjectPool<Coin> m_coinPool;
     readonly LinkedList<TerrainSegment> m_activeSegments = new();
     TerrainLoadTrigger m_loadTrigger;
 
     void Start()
     {
         m_terrainSegmentPool = new ObjectPool<TerrainSegment>(CreateTerrainSegment);
+        m_coinPool = new ObjectPool<Coin>(SpawnCoin);
         m_loadTrigger = Instantiate(m_loadTriggerPrefab);
         m_loadTrigger.OnThresholdCrossed += OnThresholdCrossed;
-
         m_activeSegments.AddLast(SpawnSegment(null));
         for (int i = 0; i < m_initialSegmentCount; i++)
             m_activeSegments.AddLast(SpawnSegment(m_activeSegments.Last.Value));
-
         UpdateLoadTrigger();
     }
 
@@ -45,12 +49,9 @@ public class TerrainController : MonoBehaviour
     void UpdateLoadTrigger()
     {
         LinkedListNode<TerrainSegment> node = m_activeSegments.Last;
-        for (int i = 0; i < m_triggerLookahead && node.Previous != null; i++)
-            node = node.Previous;
-
+        for (int i = 0; i < m_triggerLookahead && node.Previous != null; i++) node = node.Previous;
         Vector2[] overlapPoints = node.Value.OverlapPoints;
         if (overlapPoints.Length == 0) return;
-
         m_loadTrigger.SetBounds(overlapPoints[0].x, m_triggerHeight);
     }
 
@@ -59,7 +60,6 @@ public class TerrainController : MonoBehaviour
         TerrainSegment segment = m_terrainSegmentPool.Get();
         segment.gameObject.SetActive(true);
         segment.Initialize();
-
         float startX = prior?.OverlapPoints.Length > 0 ? prior.OverlapPoints[0].x : 0f;
         segment.transform.position = new(startX, 0f, 0f);
         GenerateTerrainForSegment(segment, prior);
@@ -79,5 +79,13 @@ public class TerrainController : MonoBehaviour
         TerrainSegment segment = Instantiate(m_segmentPrefab);
         segment.gameObject.SetActive(false);
         return segment;
+    }
+
+    Coin SpawnCoin()
+    {
+        Coin spawnedCoin = Instantiate(m_coinPrefab);
+        spawnedCoin.gameObject.SetActive(false);
+        m_injector.Inject(spawnedCoin);
+        return spawnedCoin;
     }
 }

@@ -11,6 +11,7 @@ public class PrefabPool<T> : IObjectPool<T> where T : MonoBehaviour
     ObjectPool<T> m_pool;
     bool m_initialized;
     InvalidOperationException m_notInitialized = new("Pool was not initialized");
+
     public void Initialize(
         Func<T> createFunc = null,
         Action<T> actionOnGet = null,
@@ -21,11 +22,18 @@ public class PrefabPool<T> : IObjectPool<T> where T : MonoBehaviour
         int maxSize = 10000)
     {
         m_pool = new(createFunc ?? (() =>
-        {
-            T obj = Object.Instantiate(Prefab);
-            obj.gameObject.SetActive(false);
-            return obj;
-        }) , actionOnGet, actionOnRelease ?? (obj => obj.gameObject.SetActive(false)) , actionOnDestroy, collectionCheck, defaultCapacity, maxSize);
+            {
+                T obj = Object.Instantiate(Prefab);
+                obj.gameObject.SetActive(false);
+                return obj;
+            }),
+            actionOnGet ?? (obj => obj.gameObject.SetActive(true)),
+            actionOnRelease ?? (obj => obj.gameObject.SetActive(false)),
+            actionOnDestroy,
+            collectionCheck,
+            defaultCapacity,
+            maxSize
+        );
         m_initialized = true;
     }
 
@@ -35,6 +43,7 @@ public class PrefabPool<T> : IObjectPool<T> where T : MonoBehaviour
         instantiated.gameObject.SetActive(false);
         return instantiated;
     }
+
     public T Get()
     {
         return m_initialized ? m_pool.Get() : throw m_notInitialized;

@@ -29,8 +29,9 @@ public class TerrainSegment : MonoBehaviour
     public void GenerateTerrain(TerrainPointData[] overlapPoints = null, int? seed = null)
     {
         if (ShapeController == null) return;
+        ShapeController.enabled = false;
         ShapeController.spline.Clear();
-
+        
         TerrainPointData[] points = GenerateTerrainKeyPoints(overlapPoints, seed ?? 0);
         TerrainPoints = points;
 
@@ -45,9 +46,8 @@ public class TerrainSegment : MonoBehaviour
         Vector2 lastPoint = points[^1].Position;
         ShapeController.spline.InsertPointAt(points.Length, new Vector2(lastPoint.x, transform.position.y - m_floorDistance));
         ShapeController.spline.InsertPointAt(points.Length + 1, new Vector2(points[0].Position.x, transform.position.y - m_floorDistance));
-        ShapeController.BakeMesh();
-        ShapeController.RefreshSpriteShape();
-
+        ShapeController.enabled = true;
+        
         int newPointsStart = Mathf.Max(overlapPoints?.Length ?? 0, points.Length - m_overlapCount);
         int copyCount = points.Length - newPointsStart;
         OverlapPoints = new TerrainPointData[copyCount];

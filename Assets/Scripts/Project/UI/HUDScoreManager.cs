@@ -13,7 +13,7 @@ public class HUDScoreManager : IScoreManager
         Score.Value += scoreToAdd;
     }
 
-    public void AddAirtimeBonus(uint scoreToAdd)
+    public void AddBonus(uint scoreToAdd)
     {
         OnBonusEarned?.Invoke(scoreToAdd);
         AddScore(scoreToAdd);

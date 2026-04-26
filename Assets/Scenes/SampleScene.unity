@@ -926,6 +926,7 @@ GameObject:
   - component: {fileID: 1714969709}
   - component: {fileID: 1714969711}
   - component: {fileID: 1714969712}
+  - component: {fileID: 1714969713}
   m_Layer: 2
   m_Name: Circle
   m_TagString: Untagged
@@ -997,7 +998,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8bd8a87ef1d4a5c45a119c9abdfb08af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1022,6 +1023,40 @@ MonoBehaviour:
   m_diveAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_diveForce: 15
   m_minimumHorizontalSpeed: 5
+  m_coyoteTime: 0.1
+  OnLanded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1714969712}
+        m_TargetAssemblyTypeName: PlayerScoreHandler, Project.Core.Player
+        m_MethodName: OnLanded
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnLeftGround:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1714969712}
+        m_TargetAssemblyTypeName: PlayerScoreHandler, Project.Core.Player
+        m_MethodName: OnLeftGround
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &1714969710
 Rigidbody2D:
   serializedVersion: 5
@@ -1083,8 +1118,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -1.75066}
+  m_Radius: 0.5683441
 --- !u!114 &1714969712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1097,12 +1132,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156623b9e86dbd34089145e2bf7e30a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Project.Core.Player::PlayerScoreHandler
-  m_groundCheckDistance: 1.1
-  m_groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   m_airtimeMultiplier: 10
   m_heightMultiplier: 5
+--- !u!95 &1714969713
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714969706}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2dba765b85bb1b49972dfde33e19b2e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1768077418
 GameObject:
   m_ObjectHideFlags: 0

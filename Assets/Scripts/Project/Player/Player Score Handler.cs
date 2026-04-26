@@ -6,8 +6,6 @@ public class PlayerScoreHandler : MonoBehaviour
     [Inject] IScoreManager m_scoreManager;
 
     [Header("Scoring Settings")]
-    [SerializeField] float m_groundCheckDistance = 1.1f;
-    [SerializeField] LayerMask m_groundLayer;
     [SerializeField] int m_airtimeMultiplier = 10;
     [SerializeField] int m_heightMultiplier = 5;
 
@@ -20,7 +18,7 @@ public class PlayerScoreHandler : MonoBehaviour
     void FixedUpdate()
     {
         HandleDistanceScoring();
-        HandleAirBonus();
+        if (m_isAirborne) TrackAirStats();
     }
 
     void HandleDistanceScoring()
@@ -30,33 +28,28 @@ public class PlayerScoreHandler : MonoBehaviour
         m_scoreManager.AddScore(1);
     }
 
-    void HandleAirBonus()
+    void TrackAirStats()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, m_groundCheckDistance, m_groundLayer);
-        bool isGrounded = hit.collider;
-        if (!isGrounded)
-        {
-            if (!m_isAirborne)
-            {
-                m_isAirborne = true;
-                m_airtimeTimer = 0;
-                m_jumpStartY = transform.position.y;
-                m_maxHeightInJump = transform.position.y;
-                Debug.Log("<color=cyan>Airborne Started!</color>");
-            }
+        m_airtimeTimer += Time.fixedDeltaTime;
+        if (transform.position.y <= m_maxHeightInJump) return;
+        m_maxHeightInJump = transform.position.y;
+    }
 
-            m_airtimeTimer += Time.fixedDeltaTime;
-            if (transform.position.y > m_maxHeightInJump)
-            {
-                m_maxHeightInJump = transform.position.y;
-            }
-        }
-        else if (m_isAirborne)
-        {
-            Debug.Log($"<color=yellow>Landed! Airtime: {m_airtimeTimer:F2}s, Peak: {m_maxHeightInJump - m_jumpStartY:F2}m</color>");
-            ApplyAirBonus();
-            m_isAirborne = false;
-        }
+    public void OnLeftGround()
+    {
+        m_isAirborne = true;
+        m_airtimeTimer = 0;
+        m_jumpStartY = transform.position.y;
+        m_maxHeightInJump = transform.position.y;
+        //Debug.Log("<color=cyan>Airborne Started!</color>");
+    }
+
+    public void OnLanded()
+    {
+        if (!m_isAirborne) return;
+        //Debug.Log($"<color=yellow>Landed! Airtime: {m_airtimeTimer:F2}s, Peak: {m_maxHeightInJump - m_jumpStartY:F2}m</color>");
+        ApplyAirBonus();
+        m_isAirborne = false;
     }
 
     void ApplyAirBonus()
@@ -66,6 +59,6 @@ public class PlayerScoreHandler : MonoBehaviour
         int airtimeBonus = Mathf.RoundToInt(m_airtimeTimer * m_airtimeMultiplier);
         if (heightBonus <= 0 && airtimeBonus <= 0) return;
         uint totalBonus = (uint)heightBonus + (uint)airtimeBonus;
-        m_scoreManager.AddAirtimeBonus(totalBonus);
+        m_scoreManager.AddBonus(totalBonus);
     }
 }

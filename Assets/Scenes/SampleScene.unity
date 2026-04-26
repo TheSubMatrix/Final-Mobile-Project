@@ -512,9 +512,25 @@ MonoBehaviour:
   m_initialSegmentCount: 3
   m_triggerLookahead: 1
   m_triggerHeight: 1000
-  m_segmentPrefab: {fileID: 6684439452304418538, guid: 26d730413883e1745ab2282ad3fab151, type: 3}
+  m_terrainSegmentPool:
+    <Prefab>k__BackingField: {fileID: 6684439452304418538, guid: 26d730413883e1745ab2282ad3fab151, type: 3}
   m_loadTriggerPrefab: {fileID: 142420116510761037, guid: 53700ee7b09d6eb4f9c2518ee7bd3516, type: 3}
-  m_coinPrefab: {fileID: 3595387256929101085, guid: 0fda0d39c8ab70842bdf1e38213f93e3, type: 3}
+  m_powerUpDecorator:
+    rid: 8571499662042988708
+  m_coinDecorator:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 8571499662042988708
+      type: {class: PowerUpDecorator, ns: , asm: Project.Core.Environment}
+      data:
+        m_spawnChance: 0.3
+        m_heightOffset: 1
+        m_powerUpPool:
+          <Prefab>k__BackingField: {fileID: 648988535486185292, guid: dcf1eb658ed81ff4a822427ff58b9d5b, type: 3}
 --- !u!4 &876810492
 Transform:
   m_ObjectHideFlags: 0
@@ -1031,7 +1047,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &1714969711
 CircleCollider2D:

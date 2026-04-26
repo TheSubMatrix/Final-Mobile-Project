@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using MatrixUtils.Attributes;
 using MatrixUtils.DependencyInjection;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -10,23 +9,21 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] int m_triggerLookahead = 2;
     [SerializeField] float m_triggerHeight = 1000f;
     [Header("Prefabs")]
-    [SerializeField, RequiredField] TerrainSegment m_segmentPrefab;
+    [SerializeField] PrefabPool<TerrainSegment> m_terrainSegmentPool;
     [SerializeField, RequiredField] TerrainLoadTrigger m_loadTriggerPrefab;
-    [SerializeField, RequiredField] Collectible m_coinPrefab;
-    [SerializeField, RequiredField] Collectible m_powerUpPrefab;
-    
+    [Header("Decorators")]
+    [ClassSelector, SerializeReference] ITerrainDecorator m_powerUpDecorator;
+    [ClassSelector, SerializeReference] ITerrainDecorator m_coinDecorator;
+
     [Inject] IInjector m_injector;
-    IObjectPool<TerrainSegment> m_terrainSegmentPool;
-    IObjectPool<Collectible> m_coinPool;
-    IObjectPool<Collectible> m_powerUpPool;
     readonly LinkedList<TerrainSegment> m_activeSegments = new();
     TerrainLoadTrigger m_loadTrigger;
 
     void Start()
     {
-        m_terrainSegmentPool = new ObjectPool<TerrainSegment>(CreateTerrainSegment);
-        m_coinPool = new ObjectPool<Collectible>(() => SpawnCollectible(m_coinPrefab));
-        m_powerUpPool = new ObjectPool<Collectible>(() => SpawnCollectible(m_powerUpPrefab));
+        m_terrainSegmentPool.Initialize();
+        m_powerUpDecorator?.Initialize(m_injector);
+        m_coinDecorator?.Initialize(m_injector);
         m_loadTrigger = Instantiate(m_loadTriggerPrefab);
         m_loadTrigger.OnThresholdCrossed += OnThresholdCrossed;
         m_activeSegments.AddLast(SpawnSegment(null));
@@ -42,10 +39,12 @@ public class LevelGenerator : MonoBehaviour
 
     void OnThresholdCrossed()
     {
-        m_activeSegments.AddLast(SpawnSegment(m_activeSegments.Last.Value));
         TerrainSegment oldest = m_activeSegments.First.Value;
         m_activeSegments.RemoveFirst();
+        m_powerUpDecorator?.CleanupTerrain(oldest);
+        m_coinDecorator?.CleanupTerrain(oldest);
         m_terrainSegmentPool.Release(oldest);
+        m_activeSegments.AddLast(SpawnSegment(m_activeSegments.Last.Value));
         UpdateLoadTrigger();
     }
 
@@ -66,6 +65,8 @@ public class LevelGenerator : MonoBehaviour
         float startX = prior?.OverlapPoints.Length > 0 ? prior.OverlapPoints[0].Position.x : 0f;
         segment.transform.position = new(startX, 0f, 0f);
         GenerateTerrainForSegment(segment, prior);
+        m_powerUpDecorator?.DecorateTerrain(segment);
+        m_coinDecorator?.DecorateTerrain(segment);
         segment.ShapeController.RefreshSpriteShape();
         return segment;
     }
@@ -75,20 +76,5 @@ public class LevelGenerator : MonoBehaviour
         if (segment == null) return;
         if (prior?.OverlapPoints.Length > 0) segment.GenerateTerrain(prior.OverlapPoints);
         else segment.GenerateTerrain();
-    }
-
-    TerrainSegment CreateTerrainSegment()
-    {
-        TerrainSegment segment = Instantiate(m_segmentPrefab);
-        segment.gameObject.SetActive(false);
-        return segment;
-    }
-
-    Collectible SpawnCollectible(Collectible collectible)
-    {
-        Collectible spawnedCoin = Instantiate(collectible);
-        spawnedCoin.gameObject.SetActive(false);
-        m_injector.Inject(spawnedCoin);
-        return spawnedCoin;
     }
 }

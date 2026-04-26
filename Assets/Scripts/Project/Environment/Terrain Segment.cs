@@ -103,7 +103,7 @@ public class TerrainSegment : MonoBehaviour
         }
 
         float currentY = overlapCount > 0 ? points[overlapCount - 1].Position.y : transform.position.y;
-        float directionalSign = overlapPoints?[^1].IsValley ?? true ? -1f : 1f;
+        float directionalSign = overlapPoints?[^1].IsValley ?? true ? 1f : -1f;
 
         Random.InitState(seed);
         for (int i = overlapCount; i < points.Length; i++)
@@ -112,7 +112,7 @@ public class TerrainSegment : MonoBehaviour
             Vector2 steps = new(Random.Range(m_minimums.x, m_maximums.x), Random.Range(m_minimums.y, m_maximums.y));
             float x = prevX + steps.x;
             float y = Mathf.Clamp(currentY + steps.y * directionalSign, m_minHeight, m_maxHeight);
-            points[i] = new(new(x, y), directionalSign > 0f);
+            points[i] = new(new(x, y), directionalSign < 0f);
             currentY = y;
             directionalSign *= -1f;
         }

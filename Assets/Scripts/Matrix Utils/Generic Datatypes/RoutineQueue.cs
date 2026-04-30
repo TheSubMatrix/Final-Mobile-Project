@@ -6,6 +6,10 @@ using UnityEngine;
 /// </summary>
 public class RoutineQueue
 {
+    public RoutineQueue(MonoBehaviour monoBehaviour)
+    {
+        m_monoBehaviour = monoBehaviour;
+    }
     readonly Queue<IEnumerator> m_routineQueue = new();
     Coroutine m_activeRoutine;
     MonoBehaviour m_monoBehaviour;

@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 using Object = UnityEngine.Object;
 
 [Serializable]
-public class PrefabPool<T> : IObjectPool<T> where T : MonoBehaviour
+public class PrefabPool<T> : IObjectPool<T> where T : Component
 {
     [field: SerializeField, RequiredField] public T Prefab { get; private set; }
     ObjectPool<T> m_pool;

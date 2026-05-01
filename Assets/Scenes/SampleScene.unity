@@ -651,6 +651,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &894179971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894179973}
+  - component: {fileID: 894179972}
+  m_Layer: 0
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &894179972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894179971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87a2c19a90042845a4d0cb7653abd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Project.Core.Environment::ParallaxBackground
+  m_camera: {fileID: 519420031}
+  m_parallaxObjects:
+  - m_parallaxPool:
+      <Prefab>k__BackingField: {fileID: 6172555726255030148, guid: 16c3f7b0c254e07479bf51ab69b7e800, type: 3}
+    m_tileWidth: 96
+    m_lockYToCamera: 1
+    ParallaxAmount: 1
+  - m_parallaxPool:
+      <Prefab>k__BackingField: {fileID: 4441180032728382544, guid: dfffdc368148f984bb70e36bb07828c5, type: 3}
+    m_tileWidth: 57.6
+    m_lockYToCamera: 0
+    ParallaxAmount: 0.5
+  - m_parallaxPool:
+      <Prefab>k__BackingField: {fileID: 4687484721522161218, guid: 05ca0332789f08d49a89b97ed0e588c0, type: 3}
+    m_tileWidth: 57.6
+    m_lockYToCamera: 0
+    ParallaxAmount: 0.25
+  - m_parallaxPool:
+      <Prefab>k__BackingField: {fileID: 6633691670101576858, guid: 0194a5db8ba250944aecde7d12f629d8, type: 3}
+    m_tileWidth: 57.6
+    m_lockYToCamera: 0
+    ParallaxAmount: 0
+--- !u!4 &894179973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894179971}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &990754983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,6 +1066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Project.Core::PlayerHUD
   m_scoreText: {fileID: 1342856651}
   m_bonusScoreText: {fileID: 1768077419}
+  m_bonusCanvasGroup: {fileID: 1768077423}
   m_scorePrefix: 'Score: '
   m_scoreManager:
     rid: 8571499642968080480
@@ -1191,6 +1258,7 @@ GameObject:
   - component: {fileID: 1768077421}
   - component: {fileID: 1768077419}
   - component: {fileID: 1768077420}
+  - component: {fileID: 1768077423}
   m_Layer: 5
   m_Name: Bonus Score
   m_TagString: Untagged
@@ -1331,6 +1399,18 @@ RectTransform:
   m_AnchoredPosition: {x: -329, y: -145}
   m_SizeDelta: {x: 0, y: 70}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!225 &1768077423
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768077418}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1758019293263901399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1400,3 +1480,4 @@ SceneRoots:
   - {fileID: 1377783803}
   - {fileID: 990754986}
   - {fileID: 1758019293263901399}
+  - {fileID: 894179973}

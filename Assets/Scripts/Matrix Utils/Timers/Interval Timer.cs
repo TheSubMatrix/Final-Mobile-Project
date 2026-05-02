@@ -26,7 +26,7 @@ namespace MatrixUtils.Timers
             m_nextInterval = totalTime - m_interval;
         }
 
-        public override void Tick()
+        protected override void HandleTick()
         {
             if (IsRunning && CurrentTime > 0)
             {

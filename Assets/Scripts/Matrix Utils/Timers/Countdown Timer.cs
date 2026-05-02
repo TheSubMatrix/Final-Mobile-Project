@@ -13,7 +13,7 @@ namespace MatrixUtils.Timers
 			InitialTime = initialTime;
 		}
 
-		public override void Tick()
+		protected override void HandleTick()
 		{
 			if (IsRunning && CurrentTime > 0)
 			{

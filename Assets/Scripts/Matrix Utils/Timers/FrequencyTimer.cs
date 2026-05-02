@@ -6,19 +6,19 @@
     {
         public uint TicksPerSecond { get; private set; }
         float m_timeThreshold;
-        public Action OnTimerTick = delegate { };
+        public Action FrequencyTick = delegate { };
 
         public FrequencyTimer() => CalculateTimeThreshold(1);
         public FrequencyTimer(uint ticksPerSecond) => CalculateTimeThreshold(ticksPerSecond);
 
-        public override void Tick()
+        protected override void HandleTick()
         {
             if (!IsRunning) return;
             CurrentTime += GetDeltaTime();
             while (CurrentTime >= m_timeThreshold)
             {
                 CurrentTime -= m_timeThreshold;
-                OnTimerTick.Invoke();
+                FrequencyTick.Invoke();
             }
         }
 
@@ -47,16 +47,16 @@
             Reset(ticksPerSecond);
             return this;
         }
-        public FrequencyTimer OnTick(Action callback)
+        public FrequencyTimer OnFrequencyTick(Action callback)
         {
-            OnTimerTick += callback;
+            FrequencyTick += callback;
             return this;
         }
 
         public override void ResetState()
         {
             base.ResetState();
-            OnTimerTick = delegate { };
+            FrequencyTick = delegate { };
         }
     }
 }

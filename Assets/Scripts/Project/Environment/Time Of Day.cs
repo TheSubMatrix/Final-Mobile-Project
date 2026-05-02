@@ -9,18 +9,17 @@ public class TimeOfDay : MonoBehaviour
     [SerializeField] TimeOfDaySettings[] m_timeOfDaySettings;
     CountdownTimer m_timer;
     [SerializeField, Range(0,1)]float m_time;
-    void UpdateVolumeWeights(float t)
+    public void UpdateVolumeWeights(float t)
     {
         foreach (TimeOfDaySettings settings in m_timeOfDaySettings)
                 settings.Volume.weight = 0f;
-        foreach (var settings in m_timeOfDaySettings)
+        foreach (TimeOfDaySettings settings in m_timeOfDaySettings)
                 settings.Volume.weight += settings.ComputeWeight(t);
-        foreach (var settings in m_timeOfDaySettings)
-                settings.Volume.weight = Mathf.Clamp01(settings.Volume.weight);
     }
 
     void OnValidate()
     {
+        if(Application.isPlaying) return;
         UpdateVolumeWeights(m_time);
     }
 

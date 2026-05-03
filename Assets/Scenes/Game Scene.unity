@@ -226,6 +226,103 @@ MonoBehaviour:
     Time: 0.4
     Smoothing: 4
     IgnoreY: 0
+--- !u!1001 &308592671
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 786498750710663437, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_Name
+      value: Scene Transitioner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717639313990177243, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 888c03a59e9da75459ada34d1c537039, type: 3}
 --- !u!1 &441628509
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,6 +1018,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1243832789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243832791}
+  - component: {fileID: 1243832790}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1243832790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243832789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7daf46eff0a19042a7fc65ccbc4e04a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Project.Core.Score::ScoreManager
+  m_repository:
+    rid: 8624563793910562908
+  references:
+    version: 2
+    RefIds:
+    - rid: 8624563793910562908
+      type: {class: LocalFileScoreRepository, ns: , asm: Project.Core.Score}
+      data: 
+--- !u!4 &1243832791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243832789}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 78.47446, y: 5.23417, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1342856648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,22 +1343,6 @@ MonoBehaviour:
   m_bonusScoreText: {fileID: 1768077419}
   m_bonusCanvasGroup: {fileID: 1768077423}
   m_scorePrefix: 'Score: '
-  m_scoreManager:
-    rid: 8571499642968080480
-  references:
-    version: 2
-    RefIds:
-    - rid: 8571499642968080480
-      type: {class: HUDScoreManager, ns: , asm: Project.Core.UI}
-      data:
-        <Score>k__BackingField:
-          m_value: 0
-          m_onValueChanged:
-            m_PersistentCalls:
-              m_Calls: []
-        <OnBonusEarned>k__BackingField:
-          m_PersistentCalls:
-            m_Calls: []
 --- !u!1 &1714969706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e36f82a2c31d9d4b8afc2418cc50da1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Project.Core::PlayerMovement
-  m_diveAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_diveAction: {fileID: 2070544702662375837, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_diveForce: 15
   m_minimumHorizontalSpeed: 5
   m_coyoteTime: 0.2
@@ -1550,8 +1683,10 @@ GameObject:
   - component: {fileID: 1937438595}
   - component: {fileID: 1937438594}
   - component: {fileID: 1937438593}
+  - component: {fileID: 1937438597}
+  - component: {fileID: 1937438598}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1603,6 +1738,33 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_onTimerComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1937438597}
+        m_TargetAssemblyTypeName: ScoreFinalizer, Project.Core.Score
+        m_MethodName: FinalizeScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1937438598}
+        m_TargetAssemblyTypeName: SceneTransitionerProxy, Project.Core.UI
+        m_MethodName: TransitionToScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Play Again
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1937438594
@@ -1719,6 +1881,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937438591}
   m_CullTransparentMesh: 1
+--- !u!114 &1937438597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937438591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371842705bba75d48bd025d360e84f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Project.Core.Score::ScoreFinalizer
+--- !u!114 &1937438598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937438591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701c4eb21c246ec41a0fff67535a6b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Project.Core.UI::SceneTransitionerProxy
 --- !u!1001 &1758019293263901399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1790,3 +1976,5 @@ SceneRoots:
   - {fileID: 894179973}
   - {fileID: 27753807}
   - {fileID: 883978122}
+  - {fileID: 1243832791}
+  - {fileID: 308592671}

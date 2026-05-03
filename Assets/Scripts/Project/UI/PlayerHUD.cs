@@ -1,27 +1,24 @@
 using System.Collections;
-using JetBrains.Annotations;
 using MatrixUtils.Attributes;
 using MatrixUtils.DependencyInjection;
-using MatrixUtils.Extensions;
 using TMPro;
 using UnityEngine;
 
-public class PlayerHUD : MonoBehaviour, IDependencyProvider
+public class PlayerHUD : MonoBehaviour
 {
+    [Inject] IScoreReader m_scoreManager;
     static readonly WaitForSeconds s_waitForSeconds08 = new(0.8f);
-
-    [Provide, UsedImplicitly] IScoreManager GetScoreManager() => m_scoreManager;
     [SerializeField, RequiredField] TMP_Text m_scoreText;
     [SerializeField, RequiredField] TMP_Text m_bonusScoreText;
     [SerializeField, RequiredField] CanvasGroup m_bonusCanvasGroup;
     [SerializeField] string m_scorePrefix;
-    [ClassSelector, SerializeReference] IScoreManager m_scoreManager;
+    float m_lastBonusTotal;
 
     RoutineQueue m_bonusRoutineQueue;
     void OnEnable()
     {
-        m_scoreManager.Score.AddListener(OnScoreChanged);
-        m_scoreManager.OnBonusEarned.AddListener(OnBonusEarned);
+        m_scoreManager.OnCurrentScoreUpdated.AddListener(OnScoreChanged);
+        m_scoreManager.OnCurrentScoreUpdated.AddListener(OnBonusEarned);
         m_bonusScoreText.text = "";
         m_bonusRoutineQueue = new(this);
         m_bonusCanvasGroup.alpha = 0;
@@ -29,18 +26,19 @@ public class PlayerHUD : MonoBehaviour, IDependencyProvider
 
     void OnDisable()
     {
-        m_scoreManager.Score.RemoveListener(OnScoreChanged);
-        m_scoreManager.OnBonusEarned.RemoveListener(OnBonusEarned);
+        m_scoreManager.OnCurrentScoreUpdated.RemoveListener(OnScoreChanged);
+        m_scoreManager.OnCurrentScoreUpdated.RemoveListener(OnBonusEarned);
     }
-    void OnScoreChanged(uint score)
+    void OnScoreChanged(ScoreData score)
     {
-        m_scoreText.text = m_scorePrefix + score;
+        m_scoreText.text = m_scorePrefix + score.Total;
     }
 
-    void OnBonusEarned(uint bonus)
+    void OnBonusEarned(ScoreData score)
     {
-        m_bonusScoreText.text = $"+{bonus}";
-        Debug.Log($"Bonus Earned: {bonus} points!");
+        if (score.BonusPoints <= m_lastBonusTotal) return;
+        m_bonusScoreText.text = $"+{score.BonusPoints - m_lastBonusTotal}";
+        m_lastBonusTotal = score.BonusPoints;
         m_bonusRoutineQueue.QueueRoutine(BonusDisplayCoroutine());
     }
     IEnumerator BonusDisplayCoroutine()

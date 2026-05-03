@@ -4,10 +4,10 @@ using UnityEngine;
 public class Coin : Collectible
 {
     [SerializeField] uint m_scoreToGive = 10;
-    [Inject] IScoreManager m_scoreManager;
+    [Inject] IScoreWriter m_scoreManager;
 
     protected override void OnCollected(Collider2D other)
     {
-        m_scoreManager.AddScore(m_scoreToGive);
+        m_scoreManager.UpdateExtraPoints(m_scoreToGive);
     }
 }

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class PlayerScoreHandler : MonoBehaviour
 {
-    [Inject] IScoreManager m_scoreManager;
+    [Inject] IScoreReaderWriter m_scoreManager;
 
     [Header("Scoring Settings")]
     [SerializeField] int m_airtimeMultiplier = 10;
     [SerializeField] int m_heightMultiplier = 5;
 
-    Vector2 m_lastPosition;
+    Vector2 m_startPosition;
     bool m_isAirborne;
     float m_airtimeTimer;
     float m_maxHeightInJump;
@@ -23,9 +23,7 @@ public class PlayerScoreHandler : MonoBehaviour
 
     void HandleDistanceScoring()
     {
-        if (!(Vector3.Distance(transform.position, m_lastPosition) > 1)) return;
-        m_lastPosition = transform.position;
-        m_scoreManager.AddScore(1);
+        m_scoreManager.UpdateDistance(Vector2.Distance(m_startPosition, transform.position));
     }
 
     void TrackAirStats()
@@ -41,13 +39,11 @@ public class PlayerScoreHandler : MonoBehaviour
         m_airtimeTimer = 0;
         m_jumpStartY = transform.position.y;
         m_maxHeightInJump = transform.position.y;
-        //Debug.Log("<color=cyan>Airborne Started!</color>");
     }
 
     public void OnLanded()
     {
         if (!m_isAirborne) return;
-        //Debug.Log($"<color=yellow>Landed! Airtime: {m_airtimeTimer:F2}s, Peak: {m_maxHeightInJump - m_jumpStartY:F2}m</color>");
         ApplyAirBonus();
         m_isAirborne = false;
     }
@@ -59,6 +55,6 @@ public class PlayerScoreHandler : MonoBehaviour
         int airtimeBonus = Mathf.RoundToInt(m_airtimeTimer * m_airtimeMultiplier);
         if (heightBonus <= 0 && airtimeBonus <= 0) return;
         uint totalBonus = (uint)heightBonus + (uint)airtimeBonus;
-        m_scoreManager.AddBonus(totalBonus);
+        m_scoreManager.UpdateBonusPoints(m_scoreManager.GetCurrentScore().BonusPoints + totalBonus);
     }
 }

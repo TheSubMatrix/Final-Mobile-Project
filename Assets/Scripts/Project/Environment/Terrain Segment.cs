@@ -9,8 +9,8 @@ public class TerrainSegment : MonoBehaviour
     public SpriteShapeController ShapeController { get; private set; }
     [Range(3, 100), SerializeField] int m_terrainResolution = 50;
     [Range(1, 20), SerializeField] int m_overlapCount = 5;
-    [SerializeField] Vector2 m_minimums = new(16, 6);
-    [SerializeField] Vector2 m_maximums = new(34, 12);
+    public Vector2 m_minimums = new(16, 6);
+    public Vector2 m_maximums = new(34, 12);
     [SerializeField] float m_floorDistance = 30;
     [SerializeField] float m_maxHeight = 10;
     [SerializeField] float m_minHeight;

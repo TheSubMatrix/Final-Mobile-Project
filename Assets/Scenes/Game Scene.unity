@@ -714,6 +714,13 @@ MonoBehaviour:
   m_initialSegmentCount: 3
   m_triggerLookahead: 1
   m_triggerHeight: 1000
+  m_easiestDifficultySettings:
+    Minimums: {x: 7, y: 2}
+    Maximums: {x: 15, y: 7}
+  m_hardestDifficultySettings:
+    Minimums: {x: 5, y: 2}
+    Maximums: {x: 10, y: 5}
+  m_difficultyRate: 0.001
   m_terrainSegmentPool:
     <Prefab>k__BackingField: {fileID: 6684439452304418538, guid: 26d730413883e1745ab2282ad3fab151, type: 3}
   m_loadTriggerPrefab: {fileID: 142420116510761037, guid: 53700ee7b09d6eb4f9c2518ee7bd3516, type: 3}

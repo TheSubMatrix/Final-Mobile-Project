@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MatrixUtils.Attributes;
 using MatrixUtils.DependencyInjection;
@@ -5,17 +6,22 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] int m_initialSegmentCount = 2;
     [SerializeField] int m_triggerLookahead = 2;
     [SerializeField] float m_triggerHeight = 1000f;
+    [SerializeField] DifficultySettings m_easiestDifficultySettings;
+    [SerializeField] DifficultySettings m_hardestDifficultySettings;
+    [SerializeField] float m_difficultyRate = .001f;
     [Header("Prefabs")]
     [SerializeField] PrefabPool<TerrainSegment> m_terrainSegmentPool;
     [SerializeField, RequiredField] TerrainLoadTrigger m_loadTriggerPrefab;
     [Header("Decorators")]
     [ClassSelector, SerializeReference] ITerrainDecorator m_powerUpDecorator;
     [ClassSelector, SerializeReference] ITerrainDecorator m_coinDecorator;
-
+    
     [Inject] IInjector m_injector;
+    [Inject] IScoreReader m_scoreManager;
     readonly LinkedList<TerrainSegment> m_activeSegments = new();
     TerrainLoadTrigger m_loadTrigger;
 
@@ -64,6 +70,7 @@ public class LevelGenerator : MonoBehaviour
         segment.Initialize();
         float startX = prior?.OverlapPoints.Length > 0 ? prior.OverlapPoints[0].Position.x : 0f;
         segment.transform.position = new(startX, 0f, 0f);
+        ApplyDifficultySettings(segment);
         GenerateTerrainForSegment(segment, prior);
         m_powerUpDecorator?.DecorateTerrain(segment);
         m_coinDecorator?.DecorateTerrain(segment);
@@ -76,5 +83,37 @@ public class LevelGenerator : MonoBehaviour
         if (segment == null) return;
         if (prior?.OverlapPoints.Length > 0) segment.GenerateTerrain(prior.OverlapPoints);
         else segment.GenerateTerrain();
+    }
+
+    static float InterpolateExponential(float x, float v1, float v2, float rate = 1)
+    {
+        float t = 1 - Mathf.Exp(-x * rate);
+        return v1 + t * (v2 - v1);
+    }
+
+    static DifficultySettings InterpolateDifficultySettings(float x, DifficultySettings v1, DifficultySettings v2, float rate = 1)
+    {
+        DifficultySettings result = new()
+        {
+            Minimums = new(InterpolateExponential(x, v1.Minimums.x, v2.Minimums.x, rate), 
+                InterpolateExponential(x, v1.Minimums.y, v2.Minimums.y, rate)),
+            Maximums = new(InterpolateExponential(x, v1.Maximums.x, v2.Maximums.x, rate),
+                InterpolateExponential(x, v1.Maximums.y, v2.Maximums.y, rate))
+        };
+        return result;
+    }
+
+    void ApplyDifficultySettings(TerrainSegment segment)
+    {
+        DifficultySettings current = InterpolateDifficultySettings(m_scoreManager.GetCurrentScore().Distance, m_easiestDifficultySettings, m_hardestDifficultySettings, m_difficultyRate);
+        segment.m_maximums = current.Maximums;
+        segment.m_minimums = current.Minimums;
+    }
+    
+    [Serializable]
+    struct DifficultySettings
+    {
+        public Vector2 Minimums;
+        public Vector2 Maximums;
     }
 }

@@ -2282,8 +2282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Project.Core::TerrainGenerator
   m_terrainResolution: 25
   m_overlapCount: 5
-  m_minimums: {x: 4.86, y: 1.99}
-  m_maximums: {x: 10, y: 5.1}
+  m_minimums: {x: 7, y: 2}
+  m_maximums: {x: 15, y: 7}
   m_floorDistance: 30
   m_maxHeight: 9.13
   m_minHeight: -7
